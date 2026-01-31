@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine? 💘</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            position: relative;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #app::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #FF1493;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #32CD32, #228B22);
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #FF6347, #DC143C);
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
+        }
+
+        .celebration {
+            font-size: 48px;
+            color: #FF1493;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .celebration {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="content">
+            <img id="mainImg" src="https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif" alt="Bear">
+            <h1 id="question">Will you be my Valentine? 💘</h1>
+            <div id="buttonContainer" class="button-container">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const NO_PHRASES = [
+            "No 💔",
+            "Pretty please? 🥺",
+            "But we'd be so cute together! 💕",
+            "One more chance, pookie?",
+            "Don't break my heart :(",
+            "What about a maybe?",
+            "Please don't do this to me, I'm fragile",
+        ];
+
+        let noClicks = 0;
+        let isValentine = false;
+
+        const app = document.getElementById('app');
+        const mainImg = document.getElementById('mainImg');
+        const question = document.getElementById('question');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        const firstImg = "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif";
+        const secondImg = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
+
+        function handleNo() {
+            noClicks++;
+            const yesButtonSize = (noClicks * 20) + 16;
+            yesBtn.style.fontSize = `${yesButtonSize}px`;
+            
+            const phraseIndex = Math.min(noClicks - 1, NO_PHRASES.length - 1);
+            noBtn.textContent = NO_PHRASES[phraseIndex];
+        }
+
+        function handleYes() {
+            isValentine = true;
+            mainImg.src = secondImg;
+            question.style.display = 'none';
+            buttonContainer.innerHTML = '<div class="celebration">Yay!!! 💖🎉</div>';
+        }
+
+        noBtn.addEventListener('click', handleNo);
+        yesBtn.addEventListener('click', handleYes);
+    </script>
+</body>
+</html>
